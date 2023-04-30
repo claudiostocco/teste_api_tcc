@@ -10,7 +10,7 @@ class Information {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic> {
-      'id': id,
+      '_id': id,
       'category': category,
       'title': title,
       'description': description
@@ -19,7 +19,7 @@ class Information {
 
   factory Information.fromMap(Map<String,dynamic> map) {
     return Information(
-      id: map.containsKey('id') ? map['id']: null, 
+      id: map.containsKey('_id') ? map['_id']: null, 
       category: map['category'], 
       title: map['title'], 
       description: map['description'],
