@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teste_api/controllers/information_controller.dart';
 
-import 'package:teste_api/types/information.dart';
-
 class Home extends StatefulWidget {
   const Home({super.key});
 

@@ -7,7 +7,7 @@ import 'package:teste_api/types/information.dart';
 
 class Informationcontroller extends ChangeNotifier {
   List<String> _categories = [];
-  Map<String,List<Information>> _info = {};
+  final Map<String,List<Information>> _info = {};
   bool _isLoading = false;
   String _messageError = '';
 
