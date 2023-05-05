@@ -43,16 +43,27 @@ class _HomeState extends State<Home> {
   }
 
   List<Widget> _showItensOfCategory(String category) {
-    return controller.info[category]!
-        .map<Widget>((e) => Card(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(e.title),
-                    Text(e.description),
-                  ]),
-            ))
-        .toList();
+    return controller.info[category]!.map<Widget>((e) {
+      var tile = e.description.length >= 15
+          ? SizedBox(
+              height: 55,
+              child: ListTile(
+                title: Text(e.title),
+                subtitle: Text(e.description),
+              ),
+            )
+          : SizedBox(
+              height: 35,
+              child: ListTile(
+                title: Text(e.title),
+                trailing: Text(e.description),
+              ),
+            );
+      return Card(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        child: tile,
+      );
+    }).toList();
   }
 
   List<Widget> _showCategories() {
