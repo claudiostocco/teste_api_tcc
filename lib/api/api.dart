@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Api {
-  final _baseUrl = 'https://api-tcc.vercel.app';
+  final _baseUrl = 'api-tcc.vercel.app';
   final Map<String, String> _baseHeaders = {'Content-Type': 'application/json'};
   final String _authorization = '';
 
@@ -20,18 +20,25 @@ class Api {
     var localHeaders = headers ?? {};
     localHeaders.addAll(_baseHeaders);
 
-    var uri = Uri.parse('$_baseUrl$url');
+    //var uri = Uri.parse('$_baseUrl$url');
+    var uri = Uri.https(_baseUrl, url);
+
     try {
       var response = await http.get(uri, headers: localHeaders);
       return response;
     } catch (e, s) {
+      String excptUri = '';
+      if (e is http.ClientException) {
+        excptUri = 'excptUri: ${e.uri?.origin ?? ''}';
+      }
       return http.Response(
           json.encode({
             'error': e.toString(),
             'stackTrace': s.toString(),
+            'url': '${uri.origin}${uri.path}',
+            'excptUri': excptUri,
           }),
-          503
-        );
+          503);
     }
   }
 
@@ -42,7 +49,8 @@ class Api {
   }) async {
     var localHeaders = headers ?? {};
     localHeaders.addAll(_baseHeaders);
-    var uri = Uri.parse('$_baseUrl$url');
+    // var uri = Uri.parse('$_baseUrl$url');
+    var uri = Uri.https(_baseUrl, url);
     try {
       var response = await http.post(uri, headers: localHeaders, body: body);
       return response;
@@ -51,6 +59,7 @@ class Api {
           json.encode({
             'error': e.toString(),
             'stackTrace': s.toString(),
+            'url': '${uri.origin}${uri.path}'
           }),
           503);
     }
