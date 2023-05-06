@@ -1,10 +1,13 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
-// // import 'package:teste_api/pages/home.dart';
+import 'api/override_http.dart';
+// import 'package:teste_api/pages/home.dart';
 import 'package:teste_api/pages/home_list.dart';
 //import 'package:teste_api/pages/home_listtile.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
